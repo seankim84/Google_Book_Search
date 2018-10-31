@@ -1,56 +1,32 @@
-import { fromJS } from 'immutable';
-import fetch from 'isomorphic-fetch';
-import { isEmpty } from 'lodash';
-import { apiKey } from '../auth/apiKey';
+import axios from 'axios';
+import { handleActions } from 'redux-actions';
+import {apiKey} from '../auth/apiKey';
 
-export const SET_BOOKS = 'SET_BOOKS';
-export const SET_QUERY = 'SET_QUERY';
+function getAPI(query) {
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`)
+};
 
-export function setBooks(books) {
-    return {
-        type: SET_BOOKS,
-        payload: books
+const GET_BOOK = 'GET_BOOK';
+
+export const getItems = (query) => dispatch => {
+    return getAPI(query).then(res => {
+        dispatch({
+            type: GET_BOOK,
+            payload: res.data
+        })
+    })
+}
+
+const initialState = {
+    book: []
+};
+
+export default handleActions({
+    [GET_BOOK]: (state, action) => {
+        const book  = action.payload.items
+        return {
+            ...state,
+            book
+        }
     }
-}
-
-export function setQuery(query) {
-    return {
-        type: SET_QUERY,
-        payload: query 
-    }
-}
-
-export const getBooks = (query) => {
-    return (dispatch, getState) => {
-        dispatch(setQuery(query))
-        !isEmpty(query) ? fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}}`)
-        .then(res => {
-            if(res.status >= 400){
-                throw new Error("Bad response from server")
-            }
-            return res.json()
-        }).then(books => {
-            dispatch(setBooks(books.items))
-        }).catch(err => {console.log(err)
-        }) : dispatch(setBooks([]))
-    }
-}
-
-export const action = {
-    getBooks
-}
-
-const ACTION_HANDLERS = {
-    [SET_BOOKS]: (state, { payload: books }) => {
-        return state.set('books', fromJS(books))
-    },
-    [SET_QUERY]: (state, { payload: query }) => {
-        return state.set('query', fromJS(query))
-    }
-}
-
-const initialState = fromJS({})
-export default (state = initialState, action) => {
-    const handler = ACTION_HANDLERS[action.type]
-    return handler ? handler(state, action) : state
-}
+}, initialState)
