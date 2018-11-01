@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.3.2",
     "@material-ui/icons": "^3.0.1",
+    "antd": "^3.10.3",
     "axios": "^0.18.0",
     "immutable": "^3.8.2",
     "isomorphic-fetch": "^2.2.1",

@@ -5,7 +5,6 @@ import  { apiKey }  from '../../auth/apiKey';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import List from '../List/List';
 
@@ -40,7 +39,7 @@ class Search extends React.Component {
             this.setState({ list: [] })
         } else {
             axios.get(`https://www.googleapis.com/books/v1/volumes?q=${this.state.search}&key=${apiKey}`)
-            .then(res => this.setState({list: res.data.items}))
+            .then(res => this.setState({ list: res.data.items }))
             .catch(err => console.log(err))
         }
     })
@@ -61,8 +60,8 @@ class Search extends React.Component {
           />
         </FormControl>
         <br />
-        {this.state.list.length > 0 ? (
-            <List list={this.state.list}/>
+        {this.state.list != null ? (
+            <List list={this.state.list} />
             ): "Empty" }
       </div>
     );
