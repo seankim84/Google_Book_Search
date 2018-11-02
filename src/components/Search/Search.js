@@ -1,31 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Input } from 'antd';
 import axios from 'axios';
 import  { apiKey }  from '../../auth/apiKey';
-import { withStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import List from '../List/List';
+import Results from '../Results/Results';
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing.unit,
-  },
-  withoutLabel: {
-    marginTop: theme.spacing.unit * 3,
-  },
-  textField: {
-    flexBasis: 200,
-  },
-});
+const SearchInput = Input.Search;
 
-class Search extends React.Component {
-
+class Search extends Component {
   state = {
     search: '',
     list: [],
@@ -46,30 +27,26 @@ class Search extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <div className={classes.root}>
-        <FormControl fullWidth className={classes.margin}>
-          <InputLabel htmlFor="adornment-amount">Search the Book</InputLabel>
-          <Input
+      <div>
+          <SearchInput 
             name="search"
             id="adornment-amount"
             value={this.state.search}
-            onChange={this.handleChange}
-          />
-        </FormControl>
+            onChange={this.handleChange} 
+            placeholder="Search Book"
+            style ={{width: "100%"}}
+            />
         <br />
+        
         {this.state.list != null ? (
-            <List list={this.state.list} />
+          <Results list={this.state.list} />
             ): "Empty" }
+
       </div>
     );
   }
 }
 
-Search.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(Search);
+export default Search;
