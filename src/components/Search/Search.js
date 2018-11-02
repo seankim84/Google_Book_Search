@@ -28,7 +28,8 @@ class Search extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{width: "100%"}}>
+          <div>
           <SearchInput 
             name="search"
             id="adornment-amount"
@@ -37,10 +38,15 @@ class Search extends Component {
             placeholder="Search Book"
             style ={{width: "100%"}}
             />
-        <br />
-        
+          </div>
         {this.state.list != null ? (
-          <Results list={this.state.list} />
+          <div style={{ display:"grid", 
+                        width:"auto",
+                        gridTemplateColumns:"1fr 1fr", 
+                        marginTop: "1rem", gridGap:"10px", 
+                        justifyItems:"center" }}>
+            <Results list={this.state.list} />
+          </div>
             ): "Empty" }
 
       </div>
