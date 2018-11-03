@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input } from 'antd';
+import { Input, Icon } from 'antd';
 import axios from 'axios';
 import  { apiKey }  from '../../auth/apiKey';
 import Results from '../Results/Results';
@@ -28,7 +28,15 @@ class Search extends Component {
 
   render() {
     return (
-      <div style={{width: "100%"}}>
+      <div style={{ display: "grid", width: "100%" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "6fr 1fr"}}>
+          <h1>Search the Google Books</h1>
+          <div style={{ width :"80%", display: "grid", gridAutoFlow:"column", justifyContent: "space-between", marginTop: "0.5rem", fontSize:"30px"}}>
+            <a type="text" href="https://github.com/seankim84"><Icon type="github" theme="outlined"/></a>
+            <a type="text" href="https://www.linkedin.com/in/hyeon-gyu-kim-b59691112/"><Icon type="linkedin" theme="outlined"/></a>
+            <a type="text" href="https://www.linkedin.com/in/hyeon-gyu-kim-b59691112/"><Icon type="link" theme="outlined" /></a>
+          </div>
+        </div>
           <div>
           <SearchInput 
             name="search"
@@ -39,11 +47,12 @@ class Search extends Component {
             style ={{width: "100%"}}
             />
           </div>
+          
         {this.state.list != null ? (
           <div style={{ display:"grid", 
                         width:"auto",
                         gridTemplateColumns:"1fr 1fr", 
-                        marginTop: "1rem", gridGap:"10px", 
+                        marginTop: "2rem", gridGap:"10px", 
                         justifyItems:"center" }}>
             <Results list={this.state.list} />
           </div>

@@ -11,11 +11,11 @@ const Results = ( props ) => (
                 <Col className="gutter-row" span={6}>
                 <Card  
                     hoverable
-                    style={{ width: 300 }}
-                    cover = {
-                            result.volumeInfo.imageLinks ? <img alt="BookCover" src={result.volumeInfo.imageLinks.thumbnail}/>: 
+                    style={{ width: 250 }}
+                    cover = { 
+                            result.volumeInfo.imageLinks ? <img alt="BookCover" src={result.volumeInfo.imageLinks.thumbnail}/> : 
                             <img alt="Alternative_Cover" src={ AlterNative }/>
-                        } 
+                        }
                     >
                 <Meta 
                     title = {result.volumeInfo.title}
